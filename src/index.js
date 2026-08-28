@@ -11,6 +11,7 @@ export default {
         name: 'Min ekonomi',
         short_name: 'Ekonomi',
         start_url: '/',
+        scope: '/',
         display: 'standalone',
         background_color: '#f7f4ef',
         theme_color: '#f7f4ef',
@@ -32,7 +33,9 @@ export default {
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Ekonomi">
   <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="apple-touch-icon-precomposed" href="/icon.svg">
   <title>Min ekonomi</title>
   <style>
     *{box-sizing:border-box}
