@@ -1,94 +1,25 @@
 export default {
   async fetch(request) {
-    return new Response(`<!DOCTYPE html>
+    return new Response(`<!doctype html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7f4ef">
-  <title>Min ekonomi</title>
-  <style>
-    *{box-sizing:border-box}
-    body{margin:0;background:#f7f4ef;color:#272522;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    main{max-width:760px;margin:auto;padding:28px 18px 44px}
-    .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26px}
-    .eyebrow{font-size:13px;letter-spacing:.08em;color:#8a837b;text-transform:uppercase}
-    h1{font-size:34px;line-height:1.05;margin:6px 0 0}
-    .month{border:1px solid #ded8d0;background:#fff;border-radius:12px;padding:9px 12px;color:#5e5953}
-    .balance{background:#2d2b29;color:#fff;border-radius:24px;padding:24px;margin-bottom:16px}
-    .balance span{color:#cfcac3;font-size:14px}.balance strong{display:block;font-size:38px;margin:5px 0 18px}
-    .progress{height:8px;background:#514e4a;border-radius:99px;overflow:hidden}.progress i{display:block;width:62%;height:100%;background:#fff;border-radius:99px}
-    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
-    .card{background:#fff;border-radius:20px;padding:19px;box-shadow:0 3px 18px rgba(0,0,0,.045)}
-    .stat small{color:#8a837b}.stat strong{display:block;font-size:23px;margin-top:5px}
-    section{margin-top:16px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-head h2{font-size:20px;margin:0}.link{border:0;background:none;color:#756e66;font-size:14px}
-    .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee9e3}.row:last-child{border-bottom:0}.icon{width:42px;height:42px;border-radius:13px;background:#f1eee9;display:grid;place-items:center;font-size:20px}.row .info{flex:1}.info strong{display:block}.info small{color:#8a837b}.amount{font-weight:600}.negative{color:#514c47}
-    .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action{border:0;border-radius:16px;background:#fff;padding:16px;text-align:left;font:inherit;box-shadow:0 3px 18px rgba(0,0,0,.045);cursor:pointer}.action b{display:block;margin-bottom:4px}.action span{font-size:13px;color:#827b73}
-    .categories{display:grid;gap:12px}.cat{display:grid;grid-template-columns:105px 1fr 55px;gap:10px;align-items:center;font-size:14px}.bar{height:9px;background:#eee9e3;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#57534e;border-radius:99px}
-    footer{margin-top:28px;text-align:center;color:#918a82;font-size:12px}
-    @media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}.actions{grid-template-columns:repeat(4,1fr)}}
-  </style>
-</head>
-<body>
-<main>
-  <header class="top">
-    <div><div class="eyebrow">Din ekonomi</div><h1>Augusti</h1></div>
-    <div class="month">2026 ▾</div>
-  </header>
-
-  <div class="balance">
-    <span>Kvar efter planerade utgifter</span>
-    <strong id="balance">18 450 kr</strong>
-    <div class="progress"><i></i></div>
-  </div>
-
-  <div class="stats">
-    <div class="card stat"><small>Inkomster</small><strong>42 000 kr</strong></div>
-    <div class="card stat"><small>Utgifter</small><strong>23 550 kr</strong></div>
-    <div class="card stat"><small>Räkningar</small><strong>14 200 kr</strong></div>
-    <div class="card stat"><small>Sparat</small><strong>4 000 kr</strong></div>
-  </div>
-
-  <section>
-    <div class="section-head"><h2>Snabbt</h2></div>
-    <div class="actions">
-      <button class="action" onclick="addExpense()"><b>＋ Utgift</b><span>Lägg till köp</span></button>
-      <button class="action" onclick="addIncome()"><b>＋ Inkomst</b><span>Lägg till pengar</span></button>
-      <button class="action" onclick="addReceipt()"><b>▣ Kvitto</b><span>Registrera kvitto</span></button>
-      <button class="action" onclick="showSummary()"><b>↗ Översikt</b><span>Se sammanfattning</span></button>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="section-head"><h2>Senaste</h2><button class="link" onclick="showAll()">Visa alla</button></div>
-    <div id="transactions">
-      <div class="row"><div class="icon">🛒</div><div class="info"><strong>Mercadona</strong><small>Mat · idag</small></div><div class="amount negative">− 64 kr</div></div>
-      <div class="row"><div class="icon">🏠</div><div class="info"><strong>Hyra</strong><small>Boende · 1 aug</small></div><div class="amount negative">− 9 800 kr</div></div>
-      <div class="row"><div class="icon">💼</div><div class="info"><strong>Lön</strong><small>Inkomst · 25 aug</small></div><div class="amount">+ 42 000 kr</div></div>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="section-head"><h2>Utgifter per kategori</h2></div>
-    <div class="categories">
-      <div class="cat"><span>Boende</span><div class="bar"><i style="width:82%"></i></div><b>9 800</b></div>
-      <div class="cat"><span>Mat</span><div class="bar"><i style="width:46%"></i></div><b>3 250</b></div>
-      <div class="cat"><span>Transport</span><div class="bar"><i style="width:25%"></i></div><b>1 720</b></div>
-      <div class="cat"><span>Övrigt</span><div class="bar"><i style="width:34%"></i></div><b>2 380</b></div>
-    </div>
-  </section>
-
-  <footer>Första byggversionen · nästa steg blir riktiga poster, kvitton och sparad data.</footer>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f4ef"><title>Min ekonomi · v2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f4ef;color:#292725;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:820px;margin:auto;padding:26px 18px 50px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.eyebrow{font-size:12px;letter-spacing:.1em;color:#8a837b;text-transform:uppercase}h1{font-size:38px;letter-spacing:-.04em;margin:5px 0 0}.month{background:#fff;border:1px solid #ded8d0;border-radius:14px;padding:10px 13px}.hero{background:#2d2b29;color:#fff;border-radius:25px;padding:23px;margin:24px 0 14px}.hero small{color:#cfcac3}.hero strong{display:block;font-size:40px;margin:4px 0 17px}.bar{height:8px;background:#514e4a;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;width:60%;background:#fff;border-radius:99px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border-radius:20px;padding:18px;box-shadow:0 3px 18px rgba(0,0,0,.045);margin-top:14px}.stat small,.muted{color:#8a837b}.stat strong{display:block;font-size:23px;margin-top:5px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.sectionhead h2{margin:0;font-size:21px}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action,button{font:inherit;cursor:pointer}.action{border:0;border-radius:16px;background:#f7f4ef;padding:15px;text-align:left}.action b{display:block}.action span{font-size:13px;color:#827b73}.voice{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #ded8d0;border-radius:17px;padding:12px;margin-top:14px}.voice button{border:0;border-radius:13px;background:#2d2b29;color:#fff;padding:12px 15px;font-weight:700}.voice input{min-width:0;flex:1;border:0;outline:0;background:transparent;font-size:15px}.voice .state{font-size:12px;color:#8a837b}.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee9e3}.row:last-child{border-bottom:0}.icon{width:42px;height:42px;border-radius:13px;background:#f1eee9;display:grid;place-items:center}.info{flex:1}.info strong{display:block}.info small{color:#8a837b}.amount{font-weight:700}.form{display:grid;gap:10px}.form label{font-size:12px;color:#746e67}.form input,.form select{width:100%;padding:13px;border:1px solid #ded8d0;border-radius:13px;background:#fff;font:inherit}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.primary{border:0;border-radius:14px;padding:14px;background:#2d2b29;color:#fff;font-weight:700}.chips{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.chip{white-space:nowrap;border:1px solid #ded8d0;background:#fff;border-radius:999px;padding:9px 12px}.empty{padding:20px 4px;text-align:center;color:#8a837b}.note{font-size:12px;color:#8a837b;line-height:1.5;margin-top:12px}footer{margin-top:24px;text-align:center;color:#918a82;font-size:12px}@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}.actions{grid-template-columns:repeat(4,1fr)}}
+</style></head>
+<body><main>
+<header class="top"><div><div class="eyebrow">Din ekonomi · version 2</div><h1>Augusti</h1></div><div class="month">2026 ▾</div></header>
+<section class="hero"><small>Kvar efter registrerade utgifter</small><strong id="balance">0 kr</strong><div class="bar"><i id="progress"></i></div></section>
+<div class="stats"><div class="card stat"><small>Inkomster</small><strong id="income">0 kr</strong></div><div class="card stat"><small>Utgifter</small><strong id="expense">0 kr</strong></div><div class="card stat"><small>Räkningar</small><strong id="bills">0 kr</strong></div><div class="card stat"><small>Sparat</small><strong id="saved">0 kr</strong></div></div>
+<section class="card"><div class="sectionhead"><h2>Snabbt</h2></div><div class="actions"><button class="action" onclick="openForm('expense')"><b>＋ Utgift</b><span>Registrera ett köp</span></button><button class="action" onclick="openForm('income')"><b>＋ Inkomst</b><span>Registrera pengar in</span></button><button class="action" onclick="document.getElementById('receipt').click()"><b>▣ Kvitto</b><span>Foto eller fil</span></button><button class="action" onclick="showSummary()"><b>↗ Översikt</b><span>Se månaden</span></button></div>
+<div class="voice"><button onclick="startVoice()">🎙️ Prata</button><input id="voiceText" placeholder="Säg t.ex. 'lägg till 450 kr mat'" onkeydown="if(event.key==='Enter')parseVoice(this.value)"><span class="state" id="voiceState">Röst redo</span></div><input id="receipt" type="file" accept="image/*,.pdf" hidden onchange="receiptAdded(this)"><div class="note">Röstkommandon i v2-prototypen: lägg till utgift, lägg till inkomst och belopp + kategori. Taligenkänning används där webbläsaren stöder det.</div></section>
+<section class="card" id="entryCard" hidden><div class="sectionhead"><h2 id="entryTitle">Ny post</h2><button class="chip" onclick="closeForm()">Stäng</button></div><div class="form"><div class="formgrid"><div><label>Belopp</label><input id="amountInput" inputmode="decimal" placeholder="0"></div><div><label>Valuta</label><select id="currency"><option>SEK</option><option>EUR</option></select></div></div><div class="formgrid"><div><label>Vad gäller det?</label><input id="description" placeholder="t.ex. mat, hyra, lön"></div><div><label>Kategori</label><select id="category"><option>Mat</option><option>Boende</option><option>Transport</option><option>Shopping</option><option>Räkning</option><option>Sparande</option><option>Övrigt</option></select></div></div><div><label>Projekt</label><select id="project"><option>Vardag</option><option>Hus</option><option>Bil</option><option>Resa</option><option>Företag</option></select></div><button class="primary" onclick="saveEntry()">Spara posten</button></div></section>
+<section class="card"><div class="sectionhead"><h2>Projekt</h2><span class="muted">välj fokus</span></div><div class="chips"><button class="chip" onclick="filterProject('Alla')">Alla</button><button class="chip" onclick="filterProject('Vardag')">Vardag</button><button class="chip" onclick="filterProject('Hus')">Hus</button><button class="chip" onclick="filterProject('Bil')">Bil</button><button class="chip" onclick="filterProject('Resa')">Resa</button><button class="chip" onclick="filterProject('Företag')">Företag</button></div></section>
+<section class="card"><div class="sectionhead"><h2>Senaste</h2><button class="chip" onclick="clearEntries()">Rensa testdata</button></div><div id="transactions"></div></section>
+<footer>Ekonomiapp v2 · poster sparas lokalt på den här enheten i denna prototyp.</footer>
 </main>
 <script>
-  function money(n){return new Intl.NumberFormat('sv-SE').format(n)+' kr'}
-  function addExpense(){const v=prompt('Vad kostade utgiften?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450-n; document.getElementById('balance').textContent=money(b); alert('Utgiften är tillagd i denna prototyp. Nästa version sparar den permanent.')}
-  function addIncome(){const v=prompt('Hur mycket fick du in?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450+n; document.getElementById('balance').textContent=money(b); alert('Inkomsten är tillagd i denna prototyp.')}
-  function addReceipt(){alert('Kvittofunktionen kommer härnäst — med uppladdning och automatisk registrering.')}
-  function showSummary(){alert('Augusti\n\nInkomster: 42 000 kr\nUtgifter: 23 550 kr\nSparat: 4 000 kr\nKvar: 18 450 kr')}
-  function showAll(){alert('Transaktionslistan byggs ut i nästa steg.')}
-</script>
-</body>
-</html>`,{headers:{'content-type':'text/html; charset=UTF-8'}});
+const KEY='ekonomi-v2';let mode='expense',filter='Alla';let entries=JSON.parse(localStorage.getItem(KEY)||'[]');const fmt=(n,c='SEK')=>new Intl.NumberFormat('sv-SE',{maximumFractionDigits:2}).format(n)+' '+c;function save(){localStorage.setItem(KEY,JSON.stringify(entries));render()}function openForm(type){mode=type;document.getElementById('entryCard').hidden=false;document.getElementById('entryTitle').textContent=type==='income'?'Ny inkomst':'Ny utgift';document.getElementById('amountInput').focus()}function closeForm(){document.getElementById('entryCard').hidden=true}function saveEntry(){let amount=parseFloat(document.getElementById('amountInput').value.replace(',','.'));if(!Number.isFinite(amount)||amount<=0)return alert('Skriv ett giltigt belopp.');entries.unshift({id:Date.now(),type:mode,amount,currency:document.getElementById('currency').value,description:document.getElementById('description').value.trim()||'Okänd post',category:document.getElementById('category').value,project:document.getElementById('project').value,date:new Date().toLocaleDateString('sv-SE')});document.getElementById('amountInput').value='';document.getElementById('description').value='';closeForm();save()}function parseVoice(text){let m=text.match(/(\d+(?:[,.]\d+)?)/);if(!m){document.getElementById('voiceState').textContent='Jag hittade inget belopp';return}let amount=parseFloat(m[1].replace(',','.'));let income=/inkomst|lön|fick in|fått in|insättning/i.test(text);let cats=[['mat','Mat'],['hyra|boende','Boende'],['transport|bensin|diesel','Transport'],['shopping|kläder','Shopping'],['räkning|faktura','Räkning'],['spara|sparande','Sparande']];let cat=cats.find(x=>new RegExp(x[0],'i').test(text));entries.unshift({id:Date.now(),type:income?'income':'expense',amount,currency:/euro|eur/i.test(text)?'EUR':'SEK',description:text.replace(m[0],'').trim()||'Röstpost',category:cat?cat[1]:'Övrigt',project:'Vardag',date:new Date().toLocaleDateString('sv-SE')});document.getElementById('voiceText').value='';document.getElementById('voiceState').textContent='✓ Posten tolkad och sparad';save()}function startVoice(){if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){document.getElementById('voiceState').textContent='Röst stöds inte i denna webbläsare';return}let R=window.SpeechRecognition||window.webkitSpeechRecognition,r=new R();r.lang='sv-SE';r.interimResults=false;r.onstart=()=>document.getElementById('voiceState').textContent='Lyssnar…';r.onresult=e=>parseVoice(e.results[0][0].transcript);r.onerror=()=>document.getElementById('voiceState').textContent='Försök igen';r.start()}function receiptAdded(input){if(input.files[0])document.getElementById('voiceState').textContent='✓ Kvitto mottaget: '+input.files[0].name+' (OCR kopplas på nästa steg)'}function filterProject(p){filter=p;render()}function clearEntries(){if(confirm('Rensa alla poster på den här enheten?')){entries=[];save()}}function render(){let income=entries.filter(e=>e.type==='income'&&e.currency==='SEK').reduce((a,e)=>a+e.amount,0),expense=entries.filter(e=>e.type==='expense'&&e.currency==='SEK').reduce((a,e)=>a+e.amount,0),bills=entries.filter(e=>e.type==='expense'&&e.category==='Räkning'&&e.currency==='SEK').reduce((a,e)=>a+e.amount,0),saved=entries.filter(e=>e.type==='expense'&&e.category==='Sparande'&&e.currency==='SEK').reduce((a,e)=>a+e.amount,0);document.getElementById('income').textContent=fmt(income);document.getElementById('expense').textContent=fmt(expense);document.getElementById('bills').textContent=fmt(bills);document.getElementById('saved').textContent=fmt(saved);document.getElementById('balance').textContent=fmt(income-expense);document.getElementById('progress').style.width=Math.max(8,Math.min(100,income?((income-expense)/income)*100:8))+'%';let list=filter==='Alla'?entries:entries.filter(e=>e.project===filter);document.getElementById('transactions').innerHTML=list.length?list.slice(0,30).map(e=>`<div class="row"><div class="icon">${e.type==='income'?'💰':'🧾'}</div><div class="info"><strong>${escapeHtml(e.description)}</strong><small>${escapeHtml(e.category)} · ${escapeHtml(e.project)} · ${e.date}</small></div><div class="amount">${e.type==='income'?'+':'−'} ${fmt(e.amount,e.currency)}</div></div>`).join(''):'<div class="empty">Inga poster ännu. Lägg till din första utgift eller inkomst ovan.</div>'}function showSummary(){alert('Månadens översikt\n\nInkomster: '+document.getElementById('income').textContent+'\nUtgifter: '+document.getElementById('expense').textContent+'\nRäkningar: '+document.getElementById('bills').textContent+'\nSparat: '+document.getElementById('saved').textContent+'\n\nKvar: '+document.getElementById('balance').textContent)}function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}render();
+</script></body></html>`,{headers:{'content-type':'text/html; charset=UTF-8'}});
   }
 };
