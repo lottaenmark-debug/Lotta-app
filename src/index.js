@@ -5,175 +5,90 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Din dag</title>
+  <meta name="theme-color" content="#f7f4ef">
+  <title>Min ekonomi</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7f4ef;
-      color: #2d2b29;
-    }
-
-    main {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 40px 22px;
-    }
-
-    .small {
-      font-size: 14px;
-      color: #817b74;
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 36px;
-      line-height: 1.1;
-      margin: 0 0 12px;
-    }
-
-    .intro {
-      color: #68625c;
-      font-size: 17px;
-      line-height: 1.5;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 24px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.05);
-    }
-
-    h2 {
-      margin-top: 0;
-      font-size: 22px;
-    }
-
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      padding: 15px;
-      font-size: 16px;
-      background: #2d2b29;
-      color: white;
-      cursor: pointer;
-    }
-
-    .feelings {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-    }
-
-    .feeling {
-      background: #f1eee9;
-      color: #2d2b29;
-      padding: 12px 4px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 120px;
-      border: 1px solid #ddd7d0;
-      border-radius: 14px;
-      padding: 14px;
-      font: inherit;
-      resize: vertical;
-      margin-bottom: 12px;
-    }
-
-    #message {
-      margin-top: 12px;
-      color: #6b665f;
-      text-align: center;
-    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#f7f4ef;color:#272522;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    main{max-width:760px;margin:auto;padding:28px 18px 44px}
+    .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26px}
+    .eyebrow{font-size:13px;letter-spacing:.08em;color:#8a837b;text-transform:uppercase}
+    h1{font-size:34px;line-height:1.05;margin:6px 0 0}
+    .month{border:1px solid #ded8d0;background:#fff;border-radius:12px;padding:9px 12px;color:#5e5953}
+    .balance{background:#2d2b29;color:#fff;border-radius:24px;padding:24px;margin-bottom:16px}
+    .balance span{color:#cfcac3;font-size:14px}.balance strong{display:block;font-size:38px;margin:5px 0 18px}
+    .progress{height:8px;background:#514e4a;border-radius:99px;overflow:hidden}.progress i{display:block;width:62%;height:100%;background:#fff;border-radius:99px}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+    .card{background:#fff;border-radius:20px;padding:19px;box-shadow:0 3px 18px rgba(0,0,0,.045)}
+    .stat small{color:#8a837b}.stat strong{display:block;font-size:23px;margin-top:5px}
+    section{margin-top:16px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-head h2{font-size:20px;margin:0}.link{border:0;background:none;color:#756e66;font-size:14px}
+    .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee9e3}.row:last-child{border-bottom:0}.icon{width:42px;height:42px;border-radius:13px;background:#f1eee9;display:grid;place-items:center;font-size:20px}.row .info{flex:1}.info strong{display:block}.info small{color:#8a837b}.amount{font-weight:600}.negative{color:#514c47}
+    .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.action{border:0;border-radius:16px;background:#fff;padding:16px;text-align:left;font:inherit;box-shadow:0 3px 18px rgba(0,0,0,.045);cursor:pointer}.action b{display:block;margin-bottom:4px}.action span{font-size:13px;color:#827b73}
+    .categories{display:grid;gap:12px}.cat{display:grid;grid-template-columns:105px 1fr 55px;gap:10px;align-items:center;font-size:14px}.bar{height:9px;background:#eee9e3;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#57534e;border-radius:99px}
+    footer{margin-top:28px;text-align:center;color:#918a82;font-size:12px}
+    @media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}.actions{grid-template-columns:repeat(4,1fr)}}
   </style>
 </head>
-
 <body>
-  <main>
-    <div class="small">EN LITEN STUND FÖR DIG</div>
-    <h1>Du behöver inte lösa allt idag.</h1>
-    <p class="intro">
-      Vi tar bara ett litet steg. Sedan ett till.
-    </p>
+<main>
+  <header class="top">
+    <div><div class="eyebrow">Din ekonomi</div><h1>Augusti</h1></div>
+    <div class="month">2026 ▾</div>
+  </header>
 
-    <section class="card">
-      <h2>🌱 Dagens lilla steg</h2>
-      <p>
-        Gör en enda liten sak som känns bra för dig.
-        Det kan vara att gå ut en stund, duscha, lyssna på en låt
-        eller bara dricka ett glas vatten.
-      </p>
-      <button onclick="done()">Jag gjorde mitt lilla steg</button>
-      <div id="message"></div>
-    </section>
+  <div class="balance">
+    <span>Kvar efter planerade utgifter</span>
+    <strong id="balance">18 450 kr</strong>
+    <div class="progress"><i></i></div>
+  </div>
 
-    <section class="card">
-      <h2>Hur känns det idag?</h2>
+  <div class="stats">
+    <div class="card stat"><small>Inkomster</small><strong>42 000 kr</strong></div>
+    <div class="card stat"><small>Utgifter</small><strong>23 550 kr</strong></div>
+    <div class="card stat"><small>Räkningar</small><strong>14 200 kr</strong></div>
+    <div class="card stat"><small>Sparat</small><strong>4 000 kr</strong></div>
+  </div>
 
-      <div class="feelings">
-        <button class="feeling" onclick="checkin('😔')">😔</button>
-        <button class="feeling" onclick="checkin('😕')">😕</button>
-        <button class="feeling" onclick="checkin('😐')">😐</button>
-        <button class="feeling" onclick="checkin('🙂')">🙂</button>
-        <button class="feeling" onclick="checkin('😊')">😊</button>
-      </div>
+  <section>
+    <div class="section-head"><h2>Snabbt</h2></div>
+    <div class="actions">
+      <button class="action" onclick="addExpense()"><b>＋ Utgift</b><span>Lägg till köp</span></button>
+      <button class="action" onclick="addIncome()"><b>＋ Inkomst</b><span>Lägg till pengar</span></button>
+      <button class="action" onclick="addReceipt()"><b>▣ Kvitto</b><span>Registrera kvitto</span></button>
+      <button class="action" onclick="showSummary()"><b>↗ Översikt</b><span>Se sammanfattning</span></button>
+    </div>
+  </section>
 
-      <div id="checkin"></div>
-    </section>
+  <section class="card">
+    <div class="section-head"><h2>Senaste</h2><button class="link" onclick="showAll()">Visa alla</button></div>
+    <div id="transactions">
+      <div class="row"><div class="icon">🛒</div><div class="info"><strong>Mercadona</strong><small>Mat · idag</small></div><div class="amount negative">− 64 kr</div></div>
+      <div class="row"><div class="icon">🏠</div><div class="info"><strong>Hyra</strong><small>Boende · 1 aug</small></div><div class="amount negative">− 9 800 kr</div></div>
+      <div class="row"><div class="icon">💼</div><div class="info"><strong>Lön</strong><small>Inkomst · 25 aug</small></div><div class="amount">+ 42 000 kr</div></div>
+    </div>
+  </section>
 
-    <section class="card">
-      <h2>Vill du skriva något?</h2>
-      <textarea id="reflection"
-        placeholder="Skriv precis det du tänker på..."></textarea>
-      <button onclick="saveReflection()">Spara min reflektion</button>
-    </section>
+  <section class="card">
+    <div class="section-head"><h2>Utgifter per kategori</h2></div>
+    <div class="categories">
+      <div class="cat"><span>Boende</span><div class="bar"><i style="width:82%"></i></div><b>9 800</b></div>
+      <div class="cat"><span>Mat</span><div class="bar"><i style="width:46%"></i></div><b>3 250</b></div>
+      <div class="cat"><span>Transport</span><div class="bar"><i style="width:25%"></i></div><b>1 720</b></div>
+      <div class="cat"><span>Övrigt</span><div class="bar"><i style="width:34%"></i></div><b>2 380</b></div>
+    </div>
+  </section>
 
-    <p class="small">
-      Det här är ett stöd för vardagen och ersätter inte mänskligt eller professionellt stöd.
-    </p>
-  </main>
-
-  <script>
-    function done() {
-      document.getElementById("message").textContent =
-        "❤️ Bra. Ett litet steg räknas.";
-    }
-
-    function checkin(feeling) {
-      document.getElementById("checkin").textContent =
-        "Du valde " + feeling + ". Tack för att du checkade in.";
-    }
-
-    function saveReflection() {
-      const text = document.getElementById("reflection").value;
-
-      if (!text.trim()) {
-        document.getElementById("message").textContent =
-          "Skriv något först om du vill spara en reflektion.";
-        return;
-      }
-
-      localStorage.setItem("reflection", text);
-
-      document.getElementById("message").textContent =
-        "🌿 Din reflektion är sparad på den här enheten.";
-    }
-  </script>
+  <footer>Första byggversionen · nästa steg blir riktiga poster, kvitton och sparad data.</footer>
+</main>
+<script>
+  function money(n){return new Intl.NumberFormat('sv-SE').format(n)+' kr'}
+  function addExpense(){const v=prompt('Vad kostade utgiften?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450-n; document.getElementById('balance').textContent=money(b); alert('Utgiften är tillagd i denna prototyp. Nästa version sparar den permanent.')}
+  function addIncome(){const v=prompt('Hur mycket fick du in?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450+n; document.getElementById('balance').textContent=money(b); alert('Inkomsten är tillagd i denna prototyp.')}
+  function addReceipt(){alert('Kvittofunktionen kommer härnäst — med uppladdning och automatisk registrering.')}
+  function showSummary(){alert('Augusti\n\nInkomster: 42 000 kr\nUtgifter: 23 550 kr\nSparat: 4 000 kr\nKvar: 18 450 kr')}
+  function showAll(){alert('Transaktionslistan byggs ut i nästa steg.')}
+</script>
 </body>
-</html>`, {
-      headers: {
-        "content-type": "text/html; charset=UTF-8"
-      }
-    });
+</html>`,{headers:{'content-type':'text/html; charset=UTF-8'}});
   }
 };
