@@ -1,15 +1,38 @@
 export default {
   async fetch(request) {
     const url = new URL(request.url);
+
     if (url.pathname === '/health') {
       return Response.json({ ok: true, app: 'Lotta-app' });
     }
+
+    if (url.pathname === '/manifest.webmanifest') {
+      return new Response(JSON.stringify({
+        name: 'Min ekonomi',
+        short_name: 'Ekonomi',
+        start_url: '/',
+        display: 'standalone',
+        background_color: '#f7f4ef',
+        theme_color: '#f7f4ef',
+        icons: [{ src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }]
+      }), { headers: { 'content-type': 'application/manifest+json; charset=UTF-8' } });
+    }
+
+    if (url.pathname === '/icon.svg') {
+      return new Response(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><rect width="1024" height="1024" rx="220" fill="#F2E3D7"/><g fill="#111111"><circle cx="512" cy="270" r="74"/><circle cx="730" cy="396" r="74"/><circle cx="730" cy="628" r="74"/><circle cx="512" cy="754" r="74"/><circle cx="294" cy="628" r="74"/><circle cx="294" cy="396" r="74"/></g></svg>`, { headers: { 'content-type': 'image/svg+xml; charset=UTF-8', 'cache-control': 'public, max-age=31536000, immutable' } });
+    }
+
     return new Response(`<!DOCTYPE html>
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#f7f4ef">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Ekonomi">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icon.svg">
   <title>Min ekonomi</title>
   <style>
     *{box-sizing:border-box}
@@ -89,7 +112,7 @@ export default {
   function addExpense(){const v=prompt('Vad kostade utgiften?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450-n; document.getElementById('balance').textContent=money(b); alert('Utgiften är tillagd i denna prototyp. Nästa version sparar den permanent.')}
   function addIncome(){const v=prompt('Hur mycket fick du in?'); if(!v)return; const n=Number(v.replace(',','.')); if(!Number.isFinite(n))return alert('Skriv ett belopp.'); const b=18450+n; document.getElementById('balance').textContent=money(b); alert('Inkomsten är tillagd i denna prototyp.')}
   function addReceipt(){alert('Kvittofunktionen kommer härnäst — med uppladdning och automatisk registrering.')}
-  function showSummary(){alert('Augusti\n\nInkomster: 42 000 kr\nUtgifter: 23 550 kr\nSparat: 4 000 kr\nKvar: 18 450 kr')}
+  function showSummary(){alert('Augusti\\n\\nInkomster: 42 000 kr\\nUtgifter: 23 550 kr\\nSparat: 4 000 kr\\nKvar: 18 450 kr')}
   function showAll(){alert('Transaktionslistan byggs ut i nästa steg.')}
 </script>
 </body>
