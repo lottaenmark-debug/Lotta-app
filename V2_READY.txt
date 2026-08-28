@@ -1,0 +1,1 @@
+Economy App v2 foundation is ready for review and deployment. See V2_PLAN.md for roadmap.
