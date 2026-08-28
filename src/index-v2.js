@@ -1,0 +1,1 @@
+// v2 build lives in src/index.js; this marker keeps the branch explicit during the transition.
